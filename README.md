@@ -1,4 +1,4 @@
-$$\Huge \textbf{Contributor}$$
+$\textbf{Contributor}$
 
 ----------------
 
