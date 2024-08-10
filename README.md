@@ -1,6 +1,4 @@
-$\textbf{Contributor}$
-
-----------------
+# Contributor
 
 （按贡献时间先后顺序排序）
 
