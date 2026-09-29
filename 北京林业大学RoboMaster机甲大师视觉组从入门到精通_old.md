@@ -1484,11 +1484,43 @@ https://www.robomaster.com/zh-CN/products/components/detail/2518
 
 #### 2.8.1 基本介绍
 
-**NoMachine** 是一款跨平台的远程桌面软件，广泛适用于 Linux、Windows、Android 以及 ARM 架构设备等几乎所有主流操作系统。虽然市面上还有向日葵、ToDesk 等常见的远程工具，但 **NoMachine** 开源极其跨平台性，成为了本项目的首选方案。
+**NoMachine** 是一款跨平台的远程桌面软件，广泛适用于 Linux、Windows、Android 以及 ARM 架构设备等几乎所有主流操作系统。虽然市面上还有向日葵、ToDesk 等常见的远程工具，但 **NoMachine** 凭借优秀的局域网直连性能、极低的控制延迟与画质表现，成为了本项目的首选方案。
+
+> **版本与收费说明：**
+> - **自 NoMachine v10 版本开始，官方调整了授权政策并转为商业收费**，不再对个人免费提供完整功能。若直接从官网首页下载，将会默认获取到需要付费授权的 v10 版本。
+> - **本项目推荐使用最后一个稳定免费的成熟版本 —— NoMachine v9.8.2**。为方便组内同学及校内队伍下载，我们已将全平台的 v9.8.2 免费安装包完整归档并上传至北京林业大学校内网盘。
 
 #### 2.8.2 安装NoMachine
 
-- 官网下载地址：[NoMachine - Download Free Remote Desktop Access](https://downloads.nomachine.com/) 
+- **北林云盘下载地址（推荐，v9.8.2 全平台免费版）：**
+  - 下载链接：[北林网盘 NoMachine v9.8.2.1 归档](https://yunpan.bjfu.edu.cn:443/link/A49190DD95AF3BA3972359D592E5E750)
+- **官网下载地址（仅供参考）：** [NoMachine - Download Free Remote Desktop Access](https://downloads.nomachine.com/) 
+  > **注意：** 官网目前默认提供收费的 v10+ 版本，**请勿直接安装官网最新版**，请务必使用上方北林网盘提供的 v9.8.2 免费版本。
+
+##### 软件包选择指南（以北林网盘目录为例）
+
+进入网盘对应子目录下载所需安装包：
+
+1. **Windows 设备（通常作为操作/控制端）：**
+   - 进入 `Windows/` 目录。
+   - 绝大多数现代电脑选择 64 位安装包：`nomachine_9.8.2_1_x64.exe`。
+   - 若为 32 位老旧系统，选择 `nomachine_9.8.2_1_x86.exe`。
+2. **Ubuntu / Debian 设备（机器人板载工控机 / 个人电脑 / 虚拟机）：**
+   - 进入 `Linux_Debian_Ubuntu/` 目录。
+   - **Intel / AMD 架构工控机或电脑（x86_64 / amd64）：** 选择 `nomachine_9.8.2_1_amd64.deb`。
+   - **NVIDIA Jetson 系列（Orin / Xavier / Nano）或树莓派 64 位（ARM64 / aarch64）：** 必须选择 `nomachine_9.8.2_1_arm64.deb`（RoboMaster 常用板载计算平台多为此架构）。
+   - **32 位 ARM 开发板：** 选择 `nomachine_9.8.2_1_armhf.deb`。
+   - **Ubuntu 终端安装方法：**
+     ```bash
+     # 进入 deb 包所在目录后执行：
+     sudo dpkg -i nomachine_9.8.2_1_amd64.deb  # 若为 Jetson 则替换为 arm64 包名
+     # 若提示缺少依赖，可运行以下命令自动修复：
+     sudo apt-get install -f
+     ```
+3. **macOS 设备（控制端）：**
+   - 进入 `MacOS/` 目录，下载 `nomachine_9.8.2_1.dmg` 双击安装。
+4. **其他 Linux 发行版：**
+   - 网盘内还提供了 `Linux_RHEL_CentOS_Fedora/`（rpm 格式）以及 `Linux_Tarball/`（通用压缩包格式）可按需选用。
 
 <img src="./北京林业大学RoboMaster机甲大师视觉组从入门到精通/2026-01-22 21-14-11.webp" alt="image-20240125010159271" style="zoom:33%;" />
 
@@ -1498,17 +1530,20 @@ Windows 下载：
 
 <img src="./北京林业大学RoboMaster机甲大师视觉组从入门到精通/2026-01-22 21-16-29.webp" alt="image-20240125010301693" style="zoom:33%;" />
 
-Ubuntu 下载，根据系统架构选择 `NoMachine for Linux DEB（amd64）`：
+Ubuntu 下载，根据系统架构选择 `NoMachine for Linux DEB（amd64）`（如为 Jetson 则选择 ARM64）：
 
 <img src="./北京林业大学RoboMaster机甲大师视觉组从入门到精通/2026-01-22 21-20-33.webp" alt="image-20240125010301693" style="zoom:33%;" />
 
-点击download，注意安装目录，下载完双击打开即可，进行安装
+点击 download，注意安装目录，下载完双击打开即可，进行安装
 
 <img src="./北京林业大学RoboMaster机甲大师视觉组从入门到精通/image-20240125010552041.webp" alt="image-20240125010552041" style="zoom:33%;" />
 
 安装完成后有服务端和客户端，打开客户端
 
-客户端成功打开如上图，第一次进入有官方使用说明，点ok不断继续即可
+客户端成功打开如上图，第一次进入有官方使用说明，点 ok 不断继续即可。
+
+> **防自动升级提示：**
+> 安装并启动 NoMachine 后，建议在软件设置（Settings -> Server preferences -> Updates）中**关闭“Automatically check for updates”（自动检查更新）**，避免软件联网后自动检测并提示升级到 v10 收费版本。
 
 #### 2.8.3 网络连接
 

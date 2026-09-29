@@ -1008,11 +1008,45 @@ cmake --version
 
 #### 1.3.3.1 基本介绍
 
-**NoMachine** 是一款跨平台的远程桌面软件，广泛适用于 Linux、Windows、Android 以及 ARM 架构设备等几乎所有主流操作系统。虽然市面上还有向日葵、ToDesk 等常见的远程工具，但 **NoMachine** 开源极其跨平台性，成为了本项目的首选方案。
+> 你可以在 **Android** 和 **iOS / iPadOS** 上进行远程控制，但这两个系统本身只能作为控制端，无法作为被控端。 
+
+**NoMachine** 是一款跨平台的远程桌面软件，广泛适用于 Linux、Windows、Android 以及 ARM 架构设备等几乎所有主流操作系统。虽然市面上还有向日葵、ToDesk 等常见的远程工具，但 **NoMachine** 凭借优秀的局域网直连性能、极低的控制延迟与画质表现，成为了本项目的首选方案。
+
+> **版本与收费说明：**
+> - **自 NoMachine v10 版本开始，官方调整了授权政策并转为商业收费**，不再对个人免费提供完整功能。若直接从官网首页下载，将会默认获取到需要付费授权的 v10 版本。
+> - **本项目推荐使用最后一个稳定免费的成熟版本 —— NoMachine v9.8.2**。为方便组内同学及校内队伍下载，我们已将全平台的 v9.8.2 免费安装包完整归档并上传至北京林业大学校内网盘。
 
 #### 1.3.3.2 安装NoMachine
 
-- 官网下载地址：[NoMachine - Download Free Remote Desktop Access](https://downloads.nomachine.com/) 
+- **北林云盘下载地址（推荐，v9.8.2 全平台免费版）：**
+  - 下载链接：[北林网盘 NoMachine v9.8.2.1 归档](https://yunpan.bjfu.edu.cn:443/link/A49190DD95AF3BA3972359D592E5E750)
+- **官网下载地址（仅供参考）：** [NoMachine - Download Free Remote Desktop Access](https://downloads.nomachine.com/) 
+  > **注意：** 官网目前默认提供收费的 v10+ 版本，**请勿直接安装官网最新版**，请务必使用上方北林网盘提供的 v9.8.2 免费版本。
+
+##### 软件包选择指南（以北林网盘目录为例）
+
+进入网盘对应子目录下载所需安装包：
+
+1. **Windows 设备（通常作为操作/控制端）：**
+   - 进入 `Windows/` 目录。
+   - 绝大多数现代电脑选择 64 位安装包：`nomachine_9.8.2_1_x64.exe`。
+   - 若为 32 位老旧系统，选择 `nomachine_9.8.2_1_x86.exe`。
+2. **Ubuntu / Debian 设备（机器人板载工控机 / 个人电脑 / 虚拟机）：**
+   - 进入 `Linux_Debian_Ubuntu/` 目录。
+   - **Intel / AMD 架构工控机或电脑（x86_64 / amd64）：** 选择 `nomachine_9.8.2_1_amd64.deb`。
+   - **NVIDIA Jetson 系列（Orin / Xavier / Nano）或树莓派 64 位（ARM64 / aarch64）：** 必须选择 `nomachine_9.8.2_1_arm64.deb`（RoboMaster 常用板载计算平台多为此架构）。
+   - **32 位 ARM 开发板：** 选择 `nomachine_9.8.2_1_armhf.deb`。
+   - **Ubuntu 终端安装方法：**
+     ```bash
+     # 进入 deb 包所在目录后执行：
+     sudo dpkg -i nomachine_9.8.2_1_amd64.deb  # 若为 Jetson 则替换为 arm64 包名
+     # 若提示缺少依赖，可运行以下命令自动修复：
+     sudo apt-get install -f
+     ```
+3. **macOS 设备（控制端）：**
+   - 进入 `MacOS/` 目录，下载 `nomachine_9.8.2_1.dmg` 双击安装。
+4. **其他 Linux 发行版：**
+   - 网盘内还提供了 `Linux_RHEL_CentOS_Fedora/`（rpm 格式）以及 `Linux_Tarball/`（通用压缩包格式）可按需选用。
 
 <img src="./北京林业大学RoboMaster机甲大师视觉组从入门到精通/2026-01-22 21-14-11.webp" alt="image-20240125010159271" style="zoom:33%;" />
 
@@ -1022,17 +1056,20 @@ Windows 下载：
 
 <img src="./北京林业大学RoboMaster机甲大师视觉组从入门到精通/2026-01-22 21-16-29.webp" alt="image-20240125010301693" style="zoom:33%;" />
 
-Ubuntu 下载，根据系统架构选择 `NoMachine for Linux DEB（amd64）`：
+Ubuntu 下载，根据系统架构选择 `NoMachine for Linux DEB（amd64）`（如为 Jetson 则选择 ARM64）：
 
 <img src="./北京林业大学RoboMaster机甲大师视觉组从入门到精通/2026-01-22 21-20-33.webp" alt="image-20240125010301693" style="zoom:33%;" />
 
-点击download，注意安装目录，下载完双击打开即可，进行安装
+点击 download，注意安装目录，下载完双击打开即可，进行安装
 
 <img src="./北京林业大学RoboMaster机甲大师视觉组从入门到精通/image-20240125010552041.webp" alt="image-20240125010552041" style="zoom:33%;" />
 
 安装完成后有服务端和客户端，打开客户端
 
-客户端成功打开如上图，第一次进入有官方使用说明，点ok不断继续即可
+客户端成功打开如上图，第一次进入有官方使用说明，点 ok 不断继续即可。
+
+> **防自动升级提示：**
+> 安装并启动 NoMachine 后，建议在软件设置（Settings -> Server preferences -> Updates）中**关闭“Automatically check for updates”（自动检查更新）**，避免软件联网后自动检测并提示升级到 v10 收费版本。
 
 #### 1.3.3.3 网络连接
 
@@ -2926,19 +2963,21 @@ net start mysql
 
 ##### 3.4.2.3.2 大疆官方服务器
 
-前往RoboMaster官网下载服务器客户端(RoboMaster产品->裁判系统->软件产品）
+前往RoboMaster官网下载服务器客户端(赛事产品->赛事引擎）
 
-各赛季的版本不一定都出来了，并且有些版本的会闪退，自己根据电脑情况多尝试几个版本即可，这里使用的是2020年的服务器客户端
+按需下载联盟赛/对抗赛相关的裁判系统赛事引擎软件即可
+
+各赛季的版本不一定都出来了，并且有些版本的会闪退，自己根据电脑情况多尝试几个版本即可(闪退大概率是因为电脑上缺少相关依赖和运行时环境)，这里使用的是2026年的服务器客户端
 
 https://www.robomaster.com/zh-CN/products/components/detail/2518
 
-<img src="./北京林业大学RoboMaster机甲大师视觉组从入门到精通/0e5d6040-a014-4b9c-9e91-c7eb86a37b42.webp" alt="0e5d6040-a014-4b9c-9e91-c7eb86a37b42" style="zoom:33%;" />
+<img src="./北京林业大学RoboMaster机甲大师视觉组从入门到精通/PixPin_2026-04-05_18-24-10.png" alt="0e5d6040-a014-4b9c-9e91-c7eb86a37b42" style="zoom:20%;" />
 
-<img src="./北京林业大学RoboMaster机甲大师视觉组从入门到精通/2ff831b2-b26c-4607-88e7-0e59d7789b9b.webp" alt="2ff831b2-b26c-4607-88e7-0e59d7789b9b" style="zoom:33%;" />
+<img src="./北京林业大学RoboMaster机甲大师视觉组从入门到精通/PixPin_2026-04-05_18-20-43.png" alt="2ff831b2-b26c-4607-88e7-0e59d7789b9b" style="zoom:20%;" />
 
-<img src="./北京林业大学RoboMaster机甲大师视觉组从入门到精通/1e4ce0be-abaf-4f0e-8df7-9b74f38bee76.webp" alt="1e4ce0be-abaf-4f0e-8df7-9b74f38bee76" style="zoom:33%;" />
+<img src="./北京林业大学RoboMaster机甲大师视觉组从入门到精通/PixPin_2026-04-05_18-29-21.png" alt="1e4ce0be-abaf-4f0e-8df7-9b74f38bee76" style="zoom:20%;" />
 
-2020赛季的服务器RoboMaster Server里面文件如下图，打开RMServerStart.exe文件，直接点击最下面的StartAll，进入后Play能够打开以下界面即可。
+2026赛季的服务器RoboMaster Server里面文件如下图，打开RMServerStart.exe文件，直接点击最下面的StartAll，进入后Play能够打开以下界面即可。
 
 <img src="./北京林业大学RoboMaster机甲大师视觉组从入门到精通/2befb81e-b765-4d33-8ed4-525afc8437be.webp" alt="2befb81e-b765-4d33-8ed4-525afc8437be" style="zoom:33%;" />
 
@@ -5545,7 +5584,112 @@ sudo ./bin/MiracleVision
 
 无法解决则更换串口模块 【注意：模块的芯片应为 `CP2102` （串口名称 `/dev/USB01` ）或模块使用STLink-V2.1（串口名称 `/dev/ACM01` ）】
 
-##### 5.1.3.1.3 装甲板跟随
+##### 5.1.3.1.3 多串口 udev 规则绑定（多串口配置）
+
+> Contributor: 唐锦梁
+
+在开发过程中，同一台 MiniPC 经常需要连接多个 USB 串口模块。如果系统每次重启或模块的插拔顺序不同，可能导致串口设备号（如 `/dev/ttyUSB0` 和 `/dev/ttyUSB1`）发生错乱。为解决此问题，需要使用 `udev` 规则对特定的串口模块进行一对一的标识与绑定，生成固定的硬件别名。
+
+**步骤 1：获取第一个串口模块的序列号**
+
+首先，仅将**第一个**串口模块插入 MiniPC。查看当前系统识别到的串口设备：
+
+```bash
+ls /dev/ttyUSB*
+```
+
+通常终端会输出如下结果：
+
+```bash
+/dev/ttyUSB0
+```
+
+> **注意**：如果输出的不是 `/dev/ttyUSB0`，请在后续的命令中将 `ttyUSB0` 替换为你实际看到的设备名称。
+
+接下来，读取该模块的唯一序列号：
+
+> **提示**：部分廉价或盗版芯片可能缺少唯一的序列号，这会导致 udev 规则无法准确区分设备。建议选用质量可靠的串口模块（笔者使用的是基于 FT232 芯片的模块）。
+
+```bash
+udevadm info -a -n /dev/ttyUSB0 | grep '{serial}'
+```
+
+终端输出示例如下：
+
+```bash
+    ATTRS{serial}=="BG02D7B8"
+    ATTRS{serial}=="0000:00:14.0"
+```
+
+其中 `ATTRS{serial}=="BG02D7B8"` 对应的值即为**该模块**的序列号，请将其记录下来。
+
+**步骤 2：获取其他串口模块的序列号**
+
+拔掉第一个串口模块，插入**第二个**串口模块（如有更多模块，操作同理），再次执行查询命令：
+
+```bash
+udevadm info -a -n /dev/ttyUSB0 | grep '{serial}'
+```
+
+终端输出示例如下：
+
+```bash
+    ATTRS{serial}=="BG02DKQZ"
+    ATTRS{serial}=="0000:00:14.0"
+```
+
+同样，记录下第二个模块的序列号（此处为 `BG02DKQZ`）。
+
+**步骤 3：编写并保存 udev 规则**
+
+获取所有模块的序列号后，将绑定规则写入系统配置文件中：
+
+```bash
+sudo nano /etc/udev/rules.d/99-usb-serial.rules
+```
+
+在文件中填入以下内容：
+
+```bash
+ACTION=="add", KERNEL=="ttyUSB*", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6001", ATTRS{serial}=="BG02D7B8", MODE="0666", SYMLINK+="ttyUSB_chassis"
+ACTION=="add", KERNEL=="ttyUSB*", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6001", ATTRS{serial}=="BG02DKQZ", MODE="0666", SYMLINK+="ttyUSB_referee"
+```
+
+> **参数说明**：
+> * 请将 `ATTRS{serial}` 的值替换为你刚刚记录的实际序列号。
+> * `SYMLINK+=` 后面的值是该串口的固定别名，建议使用有明确语义的名称。例如，`ttyUSB_chassis` 表示与底盘通信的串口，`ttyUSB_referee` 表示接收大疆裁判系统数据的串口。
+> * `MODE="0666"` 用于赋予普通用户读写权限，避免运行节点时出现权限报错。
+> 
+> 
+
+**步骤 4：刷新并加载系统规则**
+
+保存文件并退出（在 nano 中使用 `Ctrl+O` 保存，回车确认，`Ctrl+X` 退出）。随后执行以下命令，让系统立即加载并应用新增的规则：
+
+```bash
+sudo udevadm control --reload-rules
+sudo udevadm trigger
+```
+
+**步骤 5：验证配置是否生效**
+
+重新插拔一下这两个 USB 模块，运行以下命令查看软链接（别名）是否成功生成：
+
+```bash
+ls -l /dev/ttyUSB*
+```
+
+如果输出结果类似如下内容，即表示配置成功。后续在代码的配置文件中，直接使用我们设置好的固定别名（如 `/dev/ttyUSB_chassis`）来调用串口即可。
+
+```bash
+crw-rw-rw- 1 root dialout 188, 0  3月  4 12:10 /dev/ttyUSB0
+crw-rw-rw- 1 root dialout 188, 1  3月  4 12:10 /dev/ttyUSB1
+lrwxrwxrwx 1 root root         7  3月  4 12:10 /dev/ttyUSB_chassis -> ttyUSB0
+lrwxrwxrwx 1 root root         7  3月  4 12:10 /dev/ttyUSB_referee -> ttyUSB1
+```
+
+
+##### 5.1.3.1.4 装甲板跟随
 
 使用手持装甲板模块测试识别是否正常（远近，左右）
 
@@ -5565,7 +5709,7 @@ sudo ./bin/MiracleVision
 - 相机卡顿，在 UI 以及控制台可见卡顿现象，插拔相机以及重启程序，若不能解决，尝试更换相机在minipc的插入接口（换C口/反面USB口）【一般是相机供电不足引起】
 - 电控方面接收问题，找电控开调试查
 
-##### 5.1.3.1.4 弹道补偿调整
+##### 5.1.3.1.5 弹道补偿调整
 
 确认跟随正常后，开始调整弹速系数，改变装甲板远近/左右（固定靶），机器人开火
 
